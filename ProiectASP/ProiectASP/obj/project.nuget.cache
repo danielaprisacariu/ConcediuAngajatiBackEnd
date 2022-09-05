@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y+DavQtRwaiKEQh2bp5gKhLzbAt9muyw6Xe71KvgoANM6I8bjitR6S01H9eyDoozPH8/v/gh72KUv2ljdZjatA==",
+  "dgSpecHash": "XyAb0Aif6R8AtUMcH46HcDzEN1tkNLbQpCz2gOAQ0BvLnA1SKg0Lsw8MpMgfzIDXkp2ZGNUAjvrf2ooSjNdUhg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\daniela.prisacariu\\source\\repos\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
+  "projectFilePath": "C:\\Users\\daniela.prisacariu\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\daniela.prisacariu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\daniela.prisacariu\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.8\\microsoft.aspnetcore.jsonpatch.6.0.8.nupkg.sha512",
