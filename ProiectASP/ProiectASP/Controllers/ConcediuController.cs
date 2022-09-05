@@ -1,0 +1,30 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ProiectASP.Models;
+
+namespace ProiectASP.Controllers
+{
+    public class ConcediuController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        private readonly ILogger<ConcediuController> _logger;
+        private readonly StrangerThingsContext _context;
+
+        public ConcediuController(ILogger<ConcediuController> logger, StrangerThingsContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
+
+
+        [HttpGet("GetAllConcediuAngajati")]
+        public List<Concediu> GetAllConcediuAngajati()
+        {
+            return _context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Select(c => c).ToList();
+        }
+    }
+}
