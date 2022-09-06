@@ -2377,19 +2377,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\damian.mares\\.nuget\\packages\\": {}
+    "C:\\Users\\daniela.prisacariu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\damian.mares\\Source\\Repos\\ConcediuAngajatiBack\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
+      "projectUniqueName": "C:\\Users\\daniela.prisacariu\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
       "projectName": "ProiectASP",
-      "projectPath": "C:\\Users\\damian.mares\\Source\\Repos\\ConcediuAngajatiBack\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
-      "packagesPath": "C:\\Users\\damian.mares\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\damian.mares\\Source\\Repos\\ConcediuAngajatiBack\\ProiectASP\\ProiectASP\\obj\\",
+      "projectPath": "C:\\Users\\daniela.prisacariu\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
+      "packagesPath": "C:\\Users\\daniela.prisacariu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\daniela.prisacariu\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\damian.mares\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\daniela.prisacariu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
