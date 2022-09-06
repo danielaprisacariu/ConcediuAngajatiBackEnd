@@ -24,7 +24,7 @@ namespace ProiectASP.Controllers
         [HttpGet("Test")]
         public List<Angajat> GetAllStareConcediu()
         {
-            return _context.Angajats.Select(sc => new Angajat() { Id = sc.Id, Nume = sc.Nume, ManagerId = sc.ManagerId}).ToList();
+            return _context.Angajats.Select(sc => new Angajat() { Id = sc.Id, Nume = sc.Nume, ManagerId = sc.ManagerId }).ToList();
         }
 
 
@@ -32,7 +32,23 @@ namespace ProiectASP.Controllers
 
         public List<Angajat> GetAllAngajati()
         {
-            return _context.Angajats.Include(dp => dp.Departament).Include(mn => mn.Manager).Select(sc =>sc).ToList();
+            return _context.Angajats.Include(dp => dp.Departament).Include(mn => mn.Manager).Select(sc => sc).ToList();
         }
+
+        [HttpGet("GetManagerId")]
+
+        public List<Angajat> GetAllManagerId()
+        {
+            return _context.Angajats.Select(sc => new Angajat() { ManagerId = sc.ManagerId }).ToList();
+        }
+
+        //[HttpGet("GetAngajatId")]
+
+        /* public bool VerificareId(int Id)
+         {
+            List <Angajat> a = (List<Angajat>)_context.Angajats.Select( sc => sc).Where( sc => sc.ManagerId == 26) ;
+             //return (a = 26);
+         }*/
     }
 }
+
