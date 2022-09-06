@@ -30,17 +30,18 @@ namespace ProiectASP.Controllers
         }
 
         [HttpPut("PutConcediu")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public bool UpdateStareCncediu([FromQuery]int idConcediu, [FromQuery] int idStareConcediu)
         {
-            try
+            Concediu concediu = _context.Concedius.Where(c => c.Id == idConcediu).FirstOrDefault();
+            if(concediu != null)
             {
-                return RedirectToAction(nameof(Index));
+                concediu.StareConcediuId = idStareConcediu;
+
+                _context.SaveChanges();
+                return true;
             }
-            catch
-            {
-                return View();
-            }
+
+            return false;
         }
 
         [HttpGet("GetAllIstoricConcedii")]

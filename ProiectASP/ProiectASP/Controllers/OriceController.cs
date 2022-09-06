@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProiectASP.Models;
 
 namespace ProiectASP.Controllers
@@ -30,7 +31,7 @@ namespace ProiectASP.Controllers
 
         public List<Angajat> GetAllAngajati()
         {
-            return _context.Angajats.Include(mn => mn.Manager).Select(sc =>sc).ToList();
+            return _context.Angajats.Include(mn => mn.Manager).Select(sc => sc).ToList();
         }
     }
 }
