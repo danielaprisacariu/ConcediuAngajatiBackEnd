@@ -91,7 +91,8 @@ namespace ProiectASP.Models
                     .IsUnicode(false)
                     .HasColumnName("parola");
 
-                entity.Ignore(e => e.Poza);//Property(e => e.Poza).HasColumnName("poza");
+               // entity.Ignore(e => e.Poza);
+                entity.Property(e => e.Poza).HasColumnName("poza");
 
                 entity.Property(e => e.Prenume)
                     .HasMaxLength(50)
