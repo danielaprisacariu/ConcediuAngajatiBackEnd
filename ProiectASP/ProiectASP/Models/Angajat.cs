@@ -31,6 +31,10 @@ namespace ProiectASP.Models
         public int? FunctieId { get; set; }
 
         public virtual Angajat? Manager { get; set; }
+
+        public virtual Departament? Departament { get; set; }
+
+        public virtual Functie? Functie { get; set; }
         public virtual ICollection<Concediu> ConcediuAngajats { get; set; }
         public virtual ICollection<Concediu> ConcediuInlocuitors { get; set; }
         public virtual ICollection<Angajat> InverseManager { get; set; }

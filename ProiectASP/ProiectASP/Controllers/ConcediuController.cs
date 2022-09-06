@@ -25,7 +25,23 @@ namespace ProiectASP.Controllers
         [HttpGet("GetAllConcediuAngajati")]
         public List<Concediu> GetAllConcediuAngajati()
         {
-            return _context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Select(c => c).ToList();
+            return _context.Concedius.Include(c => c.Angajat).Include(c => c.Inlocuitor).Include(c => c.StareConcediu).Select(c => c).ToList();
+            //_context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Select(c => c).ToList();
+
+        }
+
+        [HttpPut("PutConcediu")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         [HttpGet("GetAllIstoricConcedii")]
