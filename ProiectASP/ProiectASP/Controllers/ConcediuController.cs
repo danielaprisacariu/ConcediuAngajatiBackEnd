@@ -42,5 +42,12 @@ namespace ProiectASP.Controllers
                 return View();
             }
         }
+
+        [HttpGet("GetAllIstoricConcedii")]
+
+        public List <Concediu> GetAllIstoricConcedii()
+        {
+            return _context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Include(c => c.TipConcediu).Select(c => c).ToList();
+        }
     }
 }
