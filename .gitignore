@@ -4,5 +4,6 @@
 
 /ProiectASP/.vs/ProiectASP/FileContentIndex
 *.user
+*.suo
 /bin
 /obj
