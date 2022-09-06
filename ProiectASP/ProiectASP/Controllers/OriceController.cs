@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ProiectASP.Models;
-using System.Runtime.Intrinsics.Arm;
 
 namespace ProiectASP.Controllers
 {
