@@ -15,9 +15,27 @@ namespace ProiectASP.Models
         public int? AngajatId { get; set; }
         public int? ZileConcediu { get; set; }
 
-        public virtual Angajat? Angajat { get; set; }
-        public virtual Angajat? Inlocuitor { get; set; }
+        public virtual Angajat Angajat { get; set; }
+        public virtual Angajat Inlocuitor { get; set; }
         public virtual StareConcediu? StareConcediu { get; set; }
         public virtual TipConcediu? TipConcediu { get; set; }
+
+        public Concediu()
+        {
+            
+        }
+
+        public Concediu(int id, DateTime dataInceput, DateTime dataSfarsit, string comentarii, Angajat angajat, Angajat inlocuitor, TipConcediu tipConcediu, StareConcediu stareConcediu)
+        {
+           this.Id = id;
+            this.DataInceput = dataInceput;
+            this.DataSfarsit = dataSfarsit;
+            this.Comentarii = comentarii;
+            this.Angajat = angajat;
+            this.Inlocuitor = inlocuitor;
+            this.TipConcediu = tipConcediu;
+            this.StareConcediu = stareConcediu;
+           
+        }
     }
 }
