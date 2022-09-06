@@ -42,5 +42,16 @@ namespace ProiectASP.Controllers
             }
             return null;
         }
+        [HttpGet("GetAllManagers")]
+        public List<Angajat> GetAllManagers()
+        {
+            return _context.Angajats.Include(a =>a.Manager).Select(a=>a).Where(a=>a.ManagerId==26).Where(a=>a.Id!=26).ToList();
+        }
+        [HttpGet("GetManagersAngajat")]
+        public List<Angajat> GetManagersAngajat([FromQuery]int idManag)
+        {
+            return _context.Angajats.Include(a => a.Manager).Select(a => a).Where(a => a.ManagerId == idManag).Where(a => a.Id != idManag).ToList();
+        }
+  
     }
 }
