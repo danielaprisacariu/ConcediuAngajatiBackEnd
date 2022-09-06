@@ -30,7 +30,7 @@ namespace ProiectASP.Controllers
 
         public List<Angajat> GetAllAngajati()
         {
-            return _context.Angajats.Select(sc => new Angajat() {Nume = sc.Nume,Prenume = sc.Prenume,Email = sc.Email}).ToList();
+            return _context.Angajats.Include(mn => mn.Manager).Select(sc =>sc).ToList();
         }
     }
 }
