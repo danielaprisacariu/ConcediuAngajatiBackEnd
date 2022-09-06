@@ -3,3 +3,6 @@
 ################################################################################
 
 /ProiectASP/.vs/ProiectASP/FileContentIndex
+*.user
+/bin
+/obj
