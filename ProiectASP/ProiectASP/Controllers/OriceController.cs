@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ProiectASP.Models;
-using System.Runtime.Intrinsics.Arm;
 
 namespace ProiectASP.Controllers
 {
@@ -28,11 +26,5 @@ namespace ProiectASP.Controllers
         }
 
 
-        [HttpGet("TotiAngajatii")]
-
-        public List<Angajat> GetAllAngajati()
-        {
-            return _context.Angajats.Include(dp => dp.Departament).Include(mn => mn.Manager).Select(sc =>sc).ToList();
-        }
     }
 }
