@@ -107,6 +107,16 @@ namespace ProiectASP.Models
                     .WithMany(p => p.InverseManager)
                     .HasForeignKey(d => d.ManagerId)
                     .HasConstraintName("FK__Angajat__manager__38996AB5");
+
+                entity.HasOne(d => d.Departament)
+                    .WithMany(p => p.Angajats)
+                    .HasForeignKey(d => d.DepartamentId)
+                    .HasConstraintName("FK_Angajat_departamentId");
+
+                entity.HasOne(d => d.Functie)
+                    .WithMany(p => p.Angajats)
+                    .HasForeignKey(d => d.FunctieId)
+                    .HasConstraintName("FK_Angajat_functieId");
             });
 
             modelBuilder.Entity<Concediu>(entity =>
