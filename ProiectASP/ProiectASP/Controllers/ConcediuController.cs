@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProiectASP.Models;
+using System.Linq;
 
 namespace ProiectASP.Controllers
 {
@@ -31,7 +32,19 @@ namespace ProiectASP.Controllers
 
         public List <Concediu> GetAllIstoricConcedii()
         {
-            return _context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Include(c => c.TipConcediu).Select(c => c).ToList();
+            return _context.Concedius
+                .Include(c => c.Angajat)
+                .Include(c => c.Inlocuitor)
+                .Include(c => c.StareConcediu)
+                .Include(c => c.TipConcediu)
+                .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
+                , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume}
+                , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
+                , new TipConcediu { Id = c.TipConcediu.Id, Nume = c.TipConcediu.Nume}
+                , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
+                ) )
+
+                .ToList();
         }
     }
 }
