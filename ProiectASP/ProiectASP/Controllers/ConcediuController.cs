@@ -5,13 +5,10 @@ using System.Linq;
 
 namespace ProiectASP.Controllers
 {
-    public class ConcediuController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ConcediuController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         private readonly ILogger<ConcediuController> _logger;
         private readonly StrangerThingsContext _context;
 
@@ -40,25 +37,7 @@ namespace ProiectASP.Controllers
 
         }
 
-        [HttpGet("GetAllConcediuManager")]
-        public List<Concediu> GetAllConcediuManager()
-        {
-            return _context.Concedius
-                .Include(c => c.Angajat.Manager)
-                .Include(c => c.Inlocuitor)
-                .Include(c => c.StareConcediu)
-                .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
-                , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume }
-                , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
-                , new TipConcediu { Nume = c.TipConcediu.Nume }
-                , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
-                )).ToList();
-
-            //_context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Select(c => c).ToList();
-
-        }
-
-        [HttpPut("PutConcediu")]
+        [HttpGet("UpdateStareConcediu")]
         public bool UpdateStareCncediu([FromQuery]int idConcediu, [FromQuery] int idStareConcediu)
         {
             Concediu concediu = _context.Concedius.Where(c => c.Id == idConcediu).FirstOrDefault();
@@ -91,5 +70,7 @@ namespace ProiectASP.Controllers
 
                 .ToList();
         }
+
+      
     }
 }

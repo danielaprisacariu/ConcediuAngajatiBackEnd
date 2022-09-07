@@ -4,12 +4,10 @@ using ProiectASP.Models;
 
 namespace ProiectASP.Controllers
 {
-    public class OriceController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class OriceController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         private readonly ILogger<StareConcediuController> _logger;
         private readonly StrangerThingsContext _context;
@@ -41,13 +39,8 @@ namespace ProiectASP.Controllers
             return _context.Angajats.Select(sc => new Angajat() { ManagerId = sc.ManagerId }).ToList();
         }
 
-        //[HttpGet("GetAngajatId")]
+        
 
-        /* public bool VerificareId(int Id)
-         {
-            List <Angajat> a = (List<Angajat>)_context.Angajats.Select( sc => sc).Where( sc => sc.ManagerId == 26) ;
-             //return (a = 26);
-         }*/
     }
 }
 
