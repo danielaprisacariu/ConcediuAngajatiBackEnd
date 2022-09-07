@@ -5,13 +5,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProiectASP.Controllers
 {
-    public class AngajatController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class AngajatController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         private readonly ILogger<AngajatController> _logger;
         private readonly StrangerThingsContext _context;
 
@@ -47,6 +44,7 @@ namespace ProiectASP.Controllers
         {
             return _context.Angajats.Include(a =>a.Manager).Select(a=>a).Where(a=>a.ManagerId==26).Where(a=>a.Id!=26).ToList();
         }
+
         [HttpGet("GetManagersAngajat")]
         public List<Angajat> GetManagersAngajat([FromQuery]int idManag)
         {

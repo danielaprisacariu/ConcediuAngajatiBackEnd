@@ -4,12 +4,10 @@ using ProiectASP.Models;
 
 namespace ProiectASP.Controllers
 {
-    public class OriceController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class OriceController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         private readonly ILogger<StareConcediuController> _logger;
         private readonly StrangerThingsContext _context;
