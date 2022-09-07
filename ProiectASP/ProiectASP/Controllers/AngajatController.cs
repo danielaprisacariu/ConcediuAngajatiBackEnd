@@ -52,6 +52,15 @@ namespace ProiectASP.Controllers
         {
             return _context.Angajats.Include(a => a.Manager).Select(a => a).Where(a => a.ManagerId == idManag).Where(a => a.Id != idManag).ToList();
         }
-  
+
+
+        [HttpGet("GetInlocuitori")]
+
+        public List<Angajat> GetInlocuitori([FromQuery] int idAngajat, [FromQuery] int idManager)
+        {
+            return _context.Angajats
+                .Select(a => new Angajat { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, ManagerId = a.ManagerId}
+                 ).Where(a => a.ManagerId == idManager && a.Id != idAngajat).ToList();
+        }
     }
 }
