@@ -39,13 +39,8 @@ namespace ProiectASP.Controllers
             return _context.Angajats.Select(sc => new Angajat() { ManagerId = sc.ManagerId }).ToList();
         }
 
-        //[HttpGet("GetAngajatId")]
+        
 
-        /* public bool VerificareId(int Id)
-         {
-            List <Angajat> a = (List<Angajat>)_context.Angajats.Select( sc => sc).Where( sc => sc.ManagerId == 26) ;
-             //return (a = 26);
-         }*/
     }
 }
 
