@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexandru.stelea\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj": {}
+    "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexandru.stelea\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj": {
+    "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexandru.stelea\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
+        "projectUniqueName": "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
         "projectName": "ProiectASP",
-        "projectPath": "C:\\Users\\alexandru.stelea\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
-        "packagesPath": "C:\\Users\\alexandru.stelea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexandru.stelea\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\obj\\",
+        "projectPath": "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
+        "packagesPath": "C:\\Users\\erwin.brustur\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\alexandru.stelea\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\erwin.brustur\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
