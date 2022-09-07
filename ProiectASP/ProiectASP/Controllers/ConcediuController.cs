@@ -25,23 +25,34 @@ namespace ProiectASP.Controllers
         [HttpGet("GetAllConcediuAngajati")]
         public List<Concediu> GetAllConcediuAngajati()
         {
-            return _context.Concedius.Include(c => c.Angajat).Include(c => c.Inlocuitor).Include(c => c.StareConcediu).Select(c => c).ToList();
+            return _context.Concedius
+                .Include(c => c.Angajat)
+                .Include(c => c.Inlocuitor)
+                .Include(c => c.StareConcediu)
+                .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
+                , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume }
+                , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
+                , new TipConcediu { Nume = c.TipConcediu.Nume }
+                , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume}
+                )).ToList();
+
             //_context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Select(c => c).ToList();
 
         }
 
         [HttpPut("PutConcediu")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public bool UpdateStareCncediu([FromQuery]int idConcediu, [FromQuery] int idStareConcediu)
         {
-            try
+            Concediu concediu = _context.Concedius.Where(c => c.Id == idConcediu).FirstOrDefault();
+            if(concediu != null)
             {
-                return RedirectToAction(nameof(Index));
+                concediu.StareConcediuId = idStareConcediu;
+
+                _context.SaveChanges();
+                return true;
             }
-            catch
-            {
-                return View();
-            }
+
+            return false;
         }
 
         [HttpGet("GetAllIstoricConcedii")]
