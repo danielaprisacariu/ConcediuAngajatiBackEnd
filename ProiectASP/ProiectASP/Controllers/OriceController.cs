@@ -39,7 +39,28 @@ namespace ProiectASP.Controllers
             return _context.Angajats.Select(sc => new Angajat() { ManagerId = sc.ManagerId }).ToList();
         }
 
-        
+        [HttpPut("PutNewAngajat")]
+
+        public void PutNewAngajat([FromBody] Angajat ang)
+        {
+           /* Angajat a = new Angajat();
+            a.Nume = ang.Nume;
+            a.Prenume = ang.Prenume;
+            a.Cnp = ang.Cnp;
+            a.Email = ang.Email;
+            a.DataNasterii = ang.DataNasterii;
+            a.No = ang.No;
+            a.Serie = ang.Serie;
+            a.NrTelefon = ang.NrTelefon;
+            a.Parola = ang.Parola;
+            a.DepartamentId = 7;
+            a.FunctieId = 5;
+            a.ManagerId = 30;
+            a.DataAngajare = DateTime.Now;*/
+
+            _context.Angajats.Add(ang);
+            _context.SaveChanges();
+        }
 
     }
 }
