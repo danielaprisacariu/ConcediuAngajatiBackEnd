@@ -17,7 +17,6 @@ namespace ProiectASP.Controllers
             _logger = logger;
             _context = context;
         }
-        //here
 
         [HttpGet("GetAllConcediuAngajati")]
         public List<Concediu> GetAllConcediuAngajati()
@@ -32,6 +31,24 @@ namespace ProiectASP.Controllers
                 , new TipConcediu { Nume = c.TipConcediu.Nume }
                 , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume}
                 )).ToList();
+
+        }
+
+
+
+        [HttpGet("GetAllConcediuManager")]
+        public List<Concediu> GetAllConcediuManager()
+        {
+            return _context.Concedius
+                .Include(c => c.Angajat)
+                .Include(c => c.Inlocuitor)
+                .Include(c => c.StareConcediu)
+                .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
+                , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume ,ManagerId = c.Angajat.ManagerId}
+                , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
+                , new TipConcediu { Nume = c.TipConcediu.Nume }
+                , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
+                )).ToList().Where(c=>c.Angajat.ManagerId==26).ToList();
 
             //_context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Select(c => c).ToList();
 
@@ -69,6 +86,14 @@ namespace ProiectASP.Controllers
                 ) )
 
                 .ToList();
+        }
+
+        [HttpPut("InserareConcediu")]
+
+        public void InserareConcediu([FromBody] Concediu con)
+        {
+            _context.Concedius.Add(con);
+            _context.SaveChanges();
         }
 
       
