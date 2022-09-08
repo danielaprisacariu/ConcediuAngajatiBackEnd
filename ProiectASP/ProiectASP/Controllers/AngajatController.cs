@@ -74,17 +74,17 @@ namespace ProiectASP.Controllers
                  ).Where(a => a.ManagerId == idManager && a.Id != idAngajat).ToList();
         }
         [HttpPut("PutConcediaat")]
-        public bool PutConcediat([FromBody] Angajat angajat)
+        public void PutConcediaat([FromBody] Angajat angajat)
         {
 
             Angajat angajatConcediat = _context.Angajats.Select(a => a).Where(a => a.Id == angajat.Id).FirstOrDefault();
             if (angajatConcediat != null)
             {
-                angajatConcediat.concediat = true;
+                angajatConcediat.concediat= true;
                 _context.SaveChanges();
-                return true;
+               
             }
-            return false;
+       
         }
     }
 }
