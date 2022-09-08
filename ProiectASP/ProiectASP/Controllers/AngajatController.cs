@@ -51,7 +51,7 @@ namespace ProiectASP.Controllers
         [HttpGet("GetAllManagers")]
         public List<Angajat> GetAllManagers()
         {
-            return _context.Angajats.Include(a => a.Manager).Select(a => a).Where(a => a.ManagerId == 26).Where(a => a.Id != 26).ToList();
+            return _context.Angajats.Select(a => a).Where(a => a.ManagerId == 26).Where(a => a.Id != 26).ToList();
         }
         [HttpGet("GetManagersAngajat")]
         public List<Angajat> GetManagersAngajat([FromQuery] int idManag)
@@ -87,14 +87,15 @@ namespace ProiectASP.Controllers
                 .Select(a => new Angajat { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, ManagerId = a.ManagerId }
                  ).Where(a => a.ManagerId == idManager && a.Id != idAngajat).ToList();
         }
-        [HttpPut("PutConcediaat")]
-        public void PutConcediaat([FromBody] Angajat angajat)
+        [HttpPost("PostConcediat")]
+        public void PostConcediat([FromBody] Angajat ang)
         {
 
-            Angajat angajatConcediat = _context.Angajats.Select(a => a).Where(a => a.Id == angajat.Id).FirstOrDefault();
+            Angajat angajatConcediat = _context.Angajats.Select(a => a).Where(a => a.Id == ang.Id).FirstOrDefault();
             if (angajatConcediat != null)
             {
                 angajatConcediat.concediat= true;
+            
                 _context.SaveChanges();
                
             }
