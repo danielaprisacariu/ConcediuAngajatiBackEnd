@@ -26,5 +26,20 @@ namespace ProiectASP.Controllers
         {
             return _context.Functies.Select(a => a).ToList();
         }
+
+        [HttpGet("GetFunctieDepartament")]
+
+        public List<Angajat> GetAllFunctieDepartament([FromQuery] int angajatId)
+        {
+            return _context.Angajats
+                .Include(a => a.Departament)
+                .Include(a => a.Functie)
+                .Where(a => a.Id == angajatId)
+                .Select(a => new Angajat(a.Id
+                , new Departament { Id = a.Departament.Id, Denumire = a.Departament.Denumire }
+                , new Functie { Id = a.Functie.Id, Denumire = a.Functie.Denumire }))
+                              
+                .ToList();
+        }
     }
 }
