@@ -29,6 +29,8 @@ namespace ProiectASP.Models
         public int? ManagerId { get; set; }
         public int? DepartamentId { get; set; }
         public int? FunctieId { get; set; }
+        
+        public bool? concediat { get; set; }
 
         public virtual Angajat? Manager { get; set; }
 

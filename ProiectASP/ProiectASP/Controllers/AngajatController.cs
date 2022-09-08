@@ -9,6 +9,8 @@ namespace ProiectASP.Controllers
     [Route("[controller]")]
     public class AngajatController : ControllerBase
     {
+
+
         private readonly ILogger<AngajatController> _logger;
         private readonly StrangerThingsContext _context;
 
@@ -51,23 +53,30 @@ namespace ProiectASP.Controllers
         {
             return _context.Angajats.Include(a => a.Manager).Select(a => a).Where(a => a.ManagerId == 26).Where(a => a.Id != 26).ToList();
         }
-
         [HttpGet("GetManagersAngajat")]
         public List<Angajat> GetManagersAngajat([FromQuery] int idManag)
         {
-
             return _context.Angajats.Include(a => a.Manager).Select(a => a).Where(a => a.ManagerId == idManag).Where(a => a.Id != idManag).ToList();
         }
-
-        [HttpPut("PutNewAngajat")]
-
-        public  Angajat AdaugaAngajat([FromBody]Angajat ang)
+        [HttpPut("PutConcediat")]
+        public bool PutConcediat([FromQuery] int idAngajat)
         {
-             _context.Angajats.Add(ang);
-            _context.SaveChanges();
-
-            return ang;
+            bool returnedBool = false;
+            Angajat angajat = _context.Angajats.Where(a => a.Id == idAngajat).FirstOrDefault();
+            if (angajat != null)
+            {
+                angajat.concediat = true;
+                _context.SaveChanges();
+                returnedBool = true;
+            }
+            return returnedBool;
         }
+    
+
+  
+
+
+  
 
 
         [HttpGet("GetInlocuitori")]
@@ -75,9 +84,21 @@ namespace ProiectASP.Controllers
         public List<Angajat> GetInlocuitori([FromQuery] int idAngajat, [FromQuery] int idManager)
         {
             return _context.Angajats
-                .Select(a => new Angajat { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, ManagerId = a.ManagerId}
+                .Select(a => new Angajat { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, ManagerId = a.ManagerId }
                  ).Where(a => a.ManagerId == idManager && a.Id != idAngajat).ToList();
         }
+        [HttpPut("PutConcediaat")]
+        public void PutConcediaat([FromBody] Angajat angajat)
+        {
+
+            Angajat angajatConcediat = _context.Angajats.Select(a => a).Where(a => a.Id == angajat.Id).FirstOrDefault();
+            if (angajatConcediat != null)
+            {
+                angajatConcediat.concediat= true;
+                _context.SaveChanges();
+               
+            }
+       
+        }
     }
-    
 }
