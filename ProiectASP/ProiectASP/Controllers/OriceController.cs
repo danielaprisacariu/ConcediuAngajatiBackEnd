@@ -62,6 +62,19 @@ namespace ProiectASP.Controllers
             _context.SaveChanges();
         }
 
+       /* [HttpPost("UpdateManagerId")]  
+        public void UpdateAngajat(Angajat a)
+        {
+          
+             List<Angajat> angajati = _context.Angajats.Select(x => x).Where(x => x.ManagerId == a.Id).ToList();
+            angajati.Add(_context.Angajats.Select(x => x).Where(x =>  x.Id == a.Id).FirstOrDefault());
+            foreach (Angajat asn in angajati)
+            {
+                asn.ManagerId = 30;
+                
+            }         
+        }*/
+
     }
 }
 
