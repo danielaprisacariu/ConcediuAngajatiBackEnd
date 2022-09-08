@@ -17,7 +17,6 @@ namespace ProiectASP.Controllers
             _logger = logger;
             _context = context;
         }
-        //here
 
         [HttpGet("GetAllConcediuAngajati")]
         public List<Concediu> GetAllConcediuAngajati()
@@ -33,9 +32,9 @@ namespace ProiectASP.Controllers
                 , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume}
                 )).ToList();
 
-            //_context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Select(c => c).ToList();
-
         }
+
+
 
         [HttpGet("UpdateStareConcediu")]
         public bool UpdateStareCncediu([FromQuery]int idConcediu, [FromQuery] int idStareConcediu)
