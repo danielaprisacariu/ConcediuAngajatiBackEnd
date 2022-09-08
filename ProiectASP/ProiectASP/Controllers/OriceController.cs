@@ -39,6 +39,7 @@ namespace ProiectASP.Controllers
             return _context.Angajats.Select(sc => new Angajat() { ManagerId = sc.ManagerId }).ToList();
         }
 
+
     }
 }
 
