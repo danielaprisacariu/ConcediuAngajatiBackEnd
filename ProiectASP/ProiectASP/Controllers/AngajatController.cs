@@ -26,6 +26,13 @@ namespace ProiectASP.Controllers
             return _context.Angajats.Select(a => new Angajat() { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, Email = a.Email, Parola = a.Parola, DataAngajare = a.DataAngajare, DataNasterii = a.DataNasterii, Cnp = a.Cnp, Serie = a.Serie, No = a.No, NrTelefon = a.NrTelefon, EsteAdmin = a.EsteAdmin, ManagerId = a.ManagerId, DepartamentId = a.DepartamentId, FunctieId = a.FunctieId }).ToList();
         }
 
+        [HttpGet("GetAllAngajatiNumeConcatenat")]
+        public List<Angajat> GetAllAngajatiNumeConcatenat()
+        {
+            return _context.Angajats.Select(a => new Angajat() { Id = a.Id, Nume = a.Nume + " " + a.Prenume, Email = a.Email, Parola = a.Parola, DataAngajare = a.DataAngajare, DataNasterii = a.DataNasterii, Cnp = a.Cnp, Serie = a.Serie, No = a.No, NrTelefon = a.NrTelefon, EsteAdmin = a.EsteAdmin, ManagerId = a.ManagerId, DepartamentId = a.DepartamentId, FunctieId = a.FunctieId }).ToList();
+        }
+
+
         [HttpGet("GetAngajatByUsername")]
 
         public Angajat GetAllAngajatByUsername([FromQuery] string username, [FromQuery] string parola)
@@ -64,6 +71,13 @@ namespace ProiectASP.Controllers
             }
             return returnedBool;
         }
+    
+
+  
+
+
+  
+
 
         [HttpGet("GetInlocuitori")]
 
@@ -74,17 +88,17 @@ namespace ProiectASP.Controllers
                  ).Where(a => a.ManagerId == idManager && a.Id != idAngajat).ToList();
         }
         [HttpPut("PutConcediaat")]
-        public bool PutConcediat([FromBody] Angajat angajat)
+        public void PutConcediaat([FromBody] Angajat angajat)
         {
 
             Angajat angajatConcediat = _context.Angajats.Select(a => a).Where(a => a.Id == angajat.Id).FirstOrDefault();
             if (angajatConcediat != null)
             {
-                angajatConcediat.concediat = true;
+                angajatConcediat.concediat= true;
                 _context.SaveChanges();
-                return true;
+               
             }
-            return false;
+       
         }
 
         [HttpGet("GetAllInlocuitoriNumeConcatenat")]
