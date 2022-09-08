@@ -89,6 +89,14 @@ namespace ProiectASP.Controllers
                 .ToList();
         }
 
+        [HttpPut("InserareConcediu")]
+
+        public void InserareConcediu([FromBody] Concediu con)
+        {
+            _context.Concedius.Add(con);
+            _context.SaveChanges();
+        }
+
       
     }
 }
