@@ -4,13 +4,10 @@ using ProiectASP.Models;
 
 namespace ProiectASP.Controllers
 {
-    public class DepartamentSiFunctieController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class DepartamentSiFunctieController : ControllerBase
     {
-
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         private readonly ILogger<DepartamentSiFunctieController> _logger;
         private readonly StrangerThingsContext _context;

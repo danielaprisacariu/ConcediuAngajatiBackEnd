@@ -5,13 +5,10 @@ using System.Linq;
 
 namespace ProiectASP.Controllers
 {
-    public class ConcediuController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ConcediuController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         private readonly ILogger<ConcediuController> _logger;
         private readonly StrangerThingsContext _context;
 
@@ -40,7 +37,7 @@ namespace ProiectASP.Controllers
 
         }
 
-        [HttpPut("PutConcediu")]
+        [HttpGet("UpdateStareConcediu")]
         public bool UpdateStareCncediu([FromQuery]int idConcediu, [FromQuery] int idStareConcediu)
         {
             Concediu concediu = _context.Concedius.Where(c => c.Id == idConcediu).FirstOrDefault();
@@ -73,5 +70,7 @@ namespace ProiectASP.Controllers
 
                 .ToList();
         }
+
+      
     }
 }

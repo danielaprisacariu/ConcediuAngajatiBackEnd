@@ -1,19 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using ProiectASP.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Net.Http;
-using System.Text;
 
 namespace ProiectASP.Controllers
 {
-    public class AngajatController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class AngajatController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
 
         private readonly ILogger<AngajatController> _logger;
         private readonly StrangerThingsContext _context;
@@ -53,41 +49,42 @@ namespace ProiectASP.Controllers
         [HttpGet("GetManagersAngajat")]
         public List<Angajat> GetManagersAngajat([FromQuery] int idManag)
         {
-
             return _context.Angajats.Include(a => a.Manager).Select(a => a).Where(a => a.ManagerId == idManag).Where(a => a.Id != idManag).ToList();
         }
-
-        [HttpPut("PutNewAngajat")]
-
-        public  void AdaugaAngajat([FromBody]Angajat ang)
+        [HttpPut("PutConcediat")]
+        public bool PutConcediat([FromQuery] int idAngajat)
         {
-           
-
-            Angajat a = new Angajat();
-            a.Nume = ang.Nume;
-            a.Prenume = ang.Prenume;
-            a.Cnp = ang.Cnp;
-            a.Email = ang.Email;
-            a.DataNasterii = ang.DataNasterii;
-            a.No = ang.No;
-            a.Serie = ang.Serie;
-            a.NrTelefon = ang.NrTelefon;
-            a.Parola = ang.Parola;
-            a.DataAngajare = DateTime.Now;
-
-
-
-
-            _context.Angajats.Add(a);
-            _context.SaveChanges();
-
-            
-
-           
+            bool returnedBool = false;
+            Angajat angajat = _context.Angajats.Where(a => a.Id == idAngajat).FirstOrDefault();
+            if (angajat != null)
+            {
+                angajat.concediat = true;
+                _context.SaveChanges();
+                returnedBool = true;
+            }
+            return returnedBool;
         }
-    
 
-  
+        [HttpGet("GetInlocuitori")]
+
+        public List<Angajat> GetInlocuitori([FromQuery] int idAngajat, [FromQuery] int idManager)
+        {
+            return _context.Angajats
+                .Select(a => new Angajat { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, ManagerId = a.ManagerId }
+                 ).Where(a => a.ManagerId == idManager && a.Id != idAngajat).ToList();
+        }
+        [HttpPut("PutConcediaat")]
+        public bool PutConcediat([FromBody] Angajat angajat)
+        {
+
+            Angajat angajatConcediat = _context.Angajats.Select(a => a).Where(a => a.Id == angajat.Id).FirstOrDefault();
+            if (angajatConcediat != null)
+            {
+                angajatConcediat.concediat = true;
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
-    
 }

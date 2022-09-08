@@ -51,6 +51,9 @@ namespace ProiectASP.Models
                 entity.Property(e => e.DataAngajare)
                     .HasColumnType("datetime")
                     .HasColumnName("dataAngajare");
+                entity.Property(e => e.concediat)
+                    .HasColumnType("bit")
+                    .HasColumnName("concediat");
 
                 entity.Property(e => e.DataNasterii)
                     .HasColumnType("datetime")
