@@ -48,6 +48,16 @@ namespace ProiectASP.Models
             this.Functie = functie;
         }
 
+        public Angajat(int id, string nume, string prenume, string email, Angajat manager,Departament departament)
+        {
+            this.Id = id;
+            this.Nume = nume;
+            this.Prenume = prenume;
+            this.Email = email;
+            this.Manager = manager;
+            this.Departament = departament;
+        }
+
 
     }
 }
