@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProiectASP.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Http;
+using System.Text;
 
 namespace ProiectASP.Controllers
 {
@@ -56,12 +59,31 @@ namespace ProiectASP.Controllers
 
         [HttpPut("PutNewAngajat")]
 
-        public  Angajat AdaugaAngajat([FromBody]Angajat ang)
+        public  void AdaugaAngajat([FromBody]Angajat ang)
         {
-             _context.Angajats.Add(ang);
+           
+
+            Angajat a = new Angajat();
+            a.Nume = ang.Nume;
+            a.Prenume = ang.Prenume;
+            a.Cnp = ang.Cnp;
+            a.Email = ang.Email;
+            a.DataNasterii = ang.DataNasterii;
+            a.No = ang.No;
+            a.Serie = ang.Serie;
+            a.NrTelefon = ang.NrTelefon;
+            a.Parola = ang.Parola;
+            a.DataAngajare = DateTime.Now;
+
+
+
+
+            _context.Angajats.Add(a);
             _context.SaveChanges();
 
-            return ang;
+            
+
+           
         }
     
 
