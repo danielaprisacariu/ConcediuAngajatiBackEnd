@@ -94,6 +94,7 @@ namespace ProiectASP.Controllers
         {
             _context.Concedius.Add(con);
             _context.SaveChanges();
+        
         }
 
       
