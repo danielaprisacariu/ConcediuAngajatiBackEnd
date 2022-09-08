@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProiectASP.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ProiectASP.Controllers
 {
@@ -71,7 +72,7 @@ namespace ProiectASP.Controllers
             }
             return returnedBool;
         }
-    
+        
 
   
 
@@ -111,6 +112,26 @@ namespace ProiectASP.Controllers
                 .ToList();
         }
 
-        
+        [HttpPost("PostTransfer")]
+        public void PostTransfer([FromQuery] int AngajatId,int managerId)
+        {
+
+            Angajat angajatTransferat = _context.Angajats.Select(a => a).Where(a => a.Id == AngajatId).FirstOrDefault();
+             angajatTransferat.ManagerId = managerId;
+            _context.SaveChanges();
+        }
+        [HttpPost("PostStergereEchipa")]
+        public void PostStergereEchipa([FromQuery] int angajatId)
+        {
+
+            List<Angajat> angajati = _context.Angajats.Select(x => x).Where(x => x.ManagerId == angajatId).ToList();
+            angajati.Add(_context.Angajats.Select(x => x).Where(x => x.Id == angajatId).FirstOrDefault());
+            foreach (Angajat asn in angajati)
+            {
+               asn.ManagerId = 30;
+
+            }
+            _context.SaveChanges();
+        }
     }
 }
