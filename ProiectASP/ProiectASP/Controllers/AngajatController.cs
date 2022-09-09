@@ -133,5 +133,21 @@ namespace ProiectASP.Controllers
             }
             _context.SaveChanges();
         }
+        [HttpPut("UpdateDateleMele")]
+
+        public void UpdateDateleMele([FromBody] Angajat ang)
+        {
+            Angajat angajat = _context.Angajats
+                .Select(a => a)
+                .Where(a => a.Id == ang.Id)
+                .FirstOrDefault();
+            angajat.NrTelefon = ang.NrTelefon;
+            angajat.Poza = ang.Poza;
+            //angajat.Poza = ang.Poza;
+
+            _context.SaveChanges();
+        }
+
+        
     }
 }
