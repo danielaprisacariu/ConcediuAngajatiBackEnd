@@ -40,6 +40,16 @@ namespace ProiectASP.Controllers
                 , new Departament { Id = sc.Departament.Id, Denumire = sc.Departament.Denumire }))
 
                 .ToList();
+
+            return _context.Angajats
+               .Include(dp => dp.Departament)
+               .Include(mn => mn.Manager)
+               .Where(sc => sc.Manager.Id != 26)
+               .Select(sc => new Angajat(sc.Id, sc.Nume, sc.Prenume, sc.Email
+               , new Angajat { Id = sc.Manager.Id, Nume = sc.Manager.Nume, Prenume = sc.Manager.Prenume }
+               , new Departament { Id = sc.Departament.Id, Denumire = sc.Departament.Denumire }))
+
+               .ToList();
         }
 
         [HttpGet("GetManagerId")]
