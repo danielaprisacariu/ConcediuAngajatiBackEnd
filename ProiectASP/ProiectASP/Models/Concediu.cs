@@ -15,8 +15,8 @@ namespace ProiectASP.Models
         public int? AngajatId { get; set; }
         public int? ZileConcediu { get; set; }
 
-        public virtual Angajat Angajat { get; set; }
-        public virtual Angajat Inlocuitor { get; set; }
+        public virtual Angajat? Angajat { get; set; }
+        public virtual Angajat? Inlocuitor { get; set; }
         public virtual StareConcediu? StareConcediu { get; set; }
         public virtual TipConcediu? TipConcediu { get; set; }
 

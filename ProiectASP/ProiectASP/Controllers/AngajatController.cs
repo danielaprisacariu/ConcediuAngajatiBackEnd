@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProiectASP.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ProiectASP.Controllers
 {
@@ -51,7 +52,7 @@ namespace ProiectASP.Controllers
         [HttpGet("GetAllManagers")]
         public List<Angajat> GetAllManagers()
         {
-            return _context.Angajats.Include(a => a.Manager).Select(a => a).Where(a => a.ManagerId == 26).Where(a => a.Id != 26).ToList();
+            return _context.Angajats.Select(a => a).Where(a => a.ManagerId == 26).Where(a => a.Id != 26).ToList();
         }
         [HttpGet("GetManagersAngajat")]
         public List<Angajat> GetManagersAngajat([FromQuery] int idManag)
@@ -71,7 +72,7 @@ namespace ProiectASP.Controllers
             }
             return returnedBool;
         }
-    
+        
 
   
 
@@ -87,18 +88,66 @@ namespace ProiectASP.Controllers
                 .Select(a => new Angajat { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, ManagerId = a.ManagerId }
                  ).Where(a => a.ManagerId == idManager && a.Id != idAngajat).ToList();
         }
-        [HttpPut("PutConcediaat")]
-        public void PutConcediaat([FromBody] Angajat angajat)
+        [HttpPost("PostConcediat")]
+        public void PostConcediat([FromBody] Angajat ang)
         {
 
-            Angajat angajatConcediat = _context.Angajats.Select(a => a).Where(a => a.Id == angajat.Id).FirstOrDefault();
+            Angajat angajatConcediat = _context.Angajats.Select(a => a).Where(a => a.Id == ang.Id).FirstOrDefault();
             if (angajatConcediat != null)
             {
                 angajatConcediat.concediat= true;
+            
                 _context.SaveChanges();
                
             }
        
         }
+
+        [HttpGet("GetAllInlocuitoriNumeConcatenat")]
+        public List<Angajat> GetAllAngajatiNumeConcatenat([FromQuery] int angajatId, int managerId)
+        {
+            return _context.Angajats
+                .Select(a => new Angajat() { Id = a.Id, Nume = a.Nume + " " + a.Prenume, ManagerId = a.ManagerId })
+                .Where(a => a.Id != angajatId && a.ManagerId == managerId)
+                .ToList();
+        }
+
+        [HttpPost("PostTransfer")]
+        public void PostTransfer([FromQuery] int AngajatId,int managerId)
+        {
+
+            Angajat angajatTransferat = _context.Angajats.Select(a => a).Where(a => a.Id == AngajatId).FirstOrDefault();
+             angajatTransferat.ManagerId = managerId;
+            _context.SaveChanges();
+        }
+        [HttpPost("PostStergereEchipa")]
+        public void PostStergereEchipa([FromQuery] int angajatId)
+        {
+
+            List<Angajat> angajati = _context.Angajats.Select(x => x).Where(x => x.ManagerId == angajatId).ToList();
+            angajati.Add(_context.Angajats.Select(x => x).Where(x => x.Id == angajatId).FirstOrDefault());
+            foreach (Angajat asn in angajati)
+            {
+               asn.ManagerId = 30;
+
+            }
+            _context.SaveChanges();
+        }
+        [HttpPut("UpdateDateleMele")]
+
+        public void UpdateDateleMele([FromBody] Angajat ang)
+        {
+            Angajat angajat = _context.Angajats
+                .Select(a => a)
+                .Where(a => a.Id == ang.Id)
+                .FirstOrDefault();
+            angajat.NrTelefon = ang.NrTelefon;
+            angajat.Poza = ang.Poza;
+            //angajat.Poza = ang.Poza;
+
+            _context.SaveChanges();
+        }
+
+        
     }
 }

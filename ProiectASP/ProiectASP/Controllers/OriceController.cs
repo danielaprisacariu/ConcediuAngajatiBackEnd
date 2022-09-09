@@ -29,7 +29,15 @@ namespace ProiectASP.Controllers
 
         public List<Angajat> GetAllAngajati()
         {
-            return _context.Angajats.Include(dp => dp.Departament).Include(mn => mn.Manager).Select(sc => sc).ToList();
+            return _context.Angajats
+                .Include(dp => dp.Departament)
+                .Include(mn => mn.Manager)
+                .Where(sc => sc.Manager.Id != 26)
+                .Select(sc => new Angajat(sc.Id, sc.Nume, sc.Prenume, sc.Email
+                , new Angajat { Id = sc.Manager.Id, Nume = sc.Manager.Nume, Prenume = sc.Manager.Prenume}
+                , new Departament { Id = sc.Departament.Id, Denumire = sc.Departament.Denumire }))
+                
+                .ToList();
         }
 
         [HttpGet("GetManagerId")]
@@ -38,6 +46,42 @@ namespace ProiectASP.Controllers
         {
             return _context.Angajats.Select(sc => new Angajat() { ManagerId = sc.ManagerId }).ToList();
         }
+
+        [HttpPut("PutNewAngajat")]
+
+        public void PutNewAngajat([FromBody] Angajat ang)
+        {
+           /* Angajat a = new Angajat();
+            a.Nume = ang.Nume;
+            a.Prenume = ang.Prenume;
+            a.Cnp = ang.Cnp;
+            a.Email = ang.Email;
+            a.DataNasterii = ang.DataNasterii;
+            a.No = ang.No;
+            a.Serie = ang.Serie;
+            a.NrTelefon = ang.NrTelefon;
+            a.Parola = ang.Parola;
+            a.DepartamentId = 7;
+            a.FunctieId = 5;
+            a.ManagerId = 30;
+            a.DataAngajare = DateTime.Now;*/
+
+            _context.Angajats.Add(ang);
+            _context.SaveChanges();
+        }
+
+       /* [HttpPost("UpdateManagerId")]  
+        public void UpdateAngajat(Angajat a)
+        {
+          
+             List<Angajat> angajati = _context.Angajats.Select(x => x).Where(x => x.ManagerId == a.Id).ToList();
+            angajati.Add(_context.Angajats.Select(x => x).Where(x =>  x.Id == a.Id).FirstOrDefault());
+            foreach (Angajat asn in angajati)
+            {
+                asn.ManagerId = 30;
+                
+            }         
+        }*/
 
     }
 }

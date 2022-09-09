@@ -40,5 +40,24 @@ namespace ProiectASP.Models
         public virtual ICollection<Concediu> ConcediuAngajats { get; set; }
         public virtual ICollection<Concediu> ConcediuInlocuitors { get; set; }
         public virtual ICollection<Angajat> InverseManager { get; set; }
+
+        public Angajat(int id, Departament departament, Functie functie)
+        {
+            this.Id = id;
+            this.Departament = departament;
+            this.Functie = functie;
+        }
+
+        public Angajat(int id, string nume, string prenume, string email, Angajat manager,Departament departament)
+        {
+            this.Id = id;
+            this.Nume = nume;
+            this.Prenume = prenume;
+            this.Email = email;
+            this.Manager = manager;
+            this.Departament = departament;
+        }
+
+
     }
 }
