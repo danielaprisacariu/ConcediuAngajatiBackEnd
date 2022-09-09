@@ -166,13 +166,14 @@ namespace ProiectASP.Controllers
 
         [HttpGet("GetAllIstoricConcedii")]
 
-        public List <Concediu> GetAllIstoricConcedii()
+        public List <Concediu> GetAllIstoricConcedii([FromQuery] int angajatId)
         {
             return _context.Concedius
                 .Include(c => c.Angajat)
                 .Include(c => c.Inlocuitor)
                 .Include(c => c.StareConcediu)
                 .Include(c => c.TipConcediu)
+                .Where(c => c.Angajat.Id == angajatId)
                 .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
                 , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume}
                 , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
