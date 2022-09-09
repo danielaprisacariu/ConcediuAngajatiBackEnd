@@ -14,6 +14,8 @@ namespace ProiectASP.Models
         public string Nume { get; set; } = null!;
         public string Cod { get; set; } = null!;
 
+        public int ZileTotaleConcediu { get; set; }
+
         public virtual ICollection<Concediu> Concedius { get; set; }
     }
 }
