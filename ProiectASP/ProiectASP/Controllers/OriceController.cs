@@ -98,6 +98,7 @@ namespace ProiectASP.Controllers
             if (!String.IsNullOrEmpty(nume))
             {
                 v = v.Where(c => c.Nume.ToLower().Contains(nume.ToLower()));
+              
             }
             if (!String.IsNullOrEmpty(prenume))
             {
@@ -112,11 +113,10 @@ namespace ProiectASP.Controllers
                 v = v.Where(c => c.DepartamentId == IdDepartamentSelectat);
             }
 
-
             return v.Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email,
                                              new Angajat { Id = a.Manager.Id, Nume = a.Manager.Nume,Prenume = a.Manager.Prenume },
                                              new Departament { Id = a.Departament.Id, Denumire =a.Departament.Denumire })).ToList();
         }
     }
-}
+
 
