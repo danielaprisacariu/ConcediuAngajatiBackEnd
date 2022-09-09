@@ -53,20 +53,20 @@ namespace ProiectASP.Controllers
 
         public void PutNewAngajat([FromBody] Angajat ang)
         {
-           /* Angajat a = new Angajat();
-            a.Nume = ang.Nume;
-            a.Prenume = ang.Prenume;
-            a.Cnp = ang.Cnp;
-            a.Email = ang.Email;
-            a.DataNasterii = ang.DataNasterii;
-            a.No = ang.No;
-            a.Serie = ang.Serie;
-            a.NrTelefon = ang.NrTelefon;
-            a.Parola = ang.Parola;
-            a.DepartamentId = 7;
-            a.FunctieId = 5;
-            a.ManagerId = 30;
-            a.DataAngajare = DateTime.Now;*/
+            /* Angajat a = new Angajat();
+             a.Nume = ang.Nume;
+             a.Prenume = ang.Prenume;
+             a.Cnp = ang.Cnp;
+             a.Email = ang.Email;
+             a.DataNasterii = ang.DataNasterii;
+             a.No = ang.No;
+             a.Serie = ang.Serie;
+             a.NrTelefon = ang.NrTelefon;
+             a.Parola = ang.Parola;
+             a.DepartamentId = 7;
+             a.FunctieId = 5;
+             a.ManagerId = 30;
+             a.DataAngajare = DateTime.Now;*/
 
             _context.Angajats.Add(ang);
             _context.SaveChanges();
@@ -88,7 +88,7 @@ namespace ProiectASP.Controllers
 
         [HttpGet("GetAngajatiFiltrat")]
 
-        public List<Angajat> GetAllAngajatiFiltrati(string? nume,string? prenume, int? IdDepartamentSelectat, int? IdManagerSelectat)
+        public List<Angajat> GetAllAngajatiFiltrati(string? nume, string? prenume, int? IdDepartamentSelectat, int? IdManagerSelectat)
         {
             var v = (IQueryable<Angajat>)_context.Angajats
                                                 .Include(c => c.Departament)
@@ -98,13 +98,13 @@ namespace ProiectASP.Controllers
             if (!String.IsNullOrEmpty(nume))
             {
                 v = v.Where(c => c.Nume.ToLower().Contains(nume.ToLower()));
-              
+
             }
             if (!String.IsNullOrEmpty(prenume))
             {
                 v = v.Where(c => c.Prenume.ToLower().Contains(prenume.ToLower()));
             }
-            if(IdManagerSelectat != null)
+            if (IdManagerSelectat != null)
             {
                 v = v.Where(c => c.ManagerId == IdManagerSelectat);
             }
@@ -114,9 +114,10 @@ namespace ProiectASP.Controllers
             }
 
             return v.Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email,
-                                             new Angajat { Id = a.Manager.Id, Nume = a.Manager.Nume,Prenume = a.Manager.Prenume },
-                                             new Departament { Id = a.Departament.Id, Denumire =a.Departament.Denumire })).ToList();
+                                             new Angajat { Id = a.Manager.Id, Nume = a.Manager.Nume, Prenume = a.Manager.Prenume },
+                                             new Departament { Id = a.Departament.Id, Denumire = a.Departament.Denumire })).ToList();
         }
     }
+}
 
 
