@@ -166,22 +166,33 @@ namespace ProiectASP.Controllers
 
         [HttpGet("GetAllIstoricConcedii")]
 
-        public List <Concediu> GetAllIstoricConcedii([FromQuery] int angajatId)
+        public List <Concediu> GetAllIstoricConcedii([FromQuery] int angajatId, int? nrInceputInregistrari, int? nrTotalInregistrariDeAdus)
         {
-            return _context.Concedius
-                .Include(c => c.Angajat)
-                .Include(c => c.Inlocuitor)
-                .Include(c => c.StareConcediu)
-                .Include(c => c.TipConcediu)
-                .Where(c => c.Angajat.Id == angajatId)
-                .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
-                , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume}
-                , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
-                , new TipConcediu { Id = c.TipConcediu.Id, Nume = c.TipConcediu.Nume}
-                , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
-                ) )
+            var v = (IQueryable<Concediu>)_context.Concedius
+                 .Include(c => c.Angajat)
+                 .Include(c => c.Inlocuitor)
+                 .Include(c => c.StareConcediu)
+                 .Include(c => c.TipConcediu);
+            if (angajatId != null)
+            {
+                v = v.Where(c => c.Angajat.Id == angajatId);
+            }
 
-                .ToList();
+            v = v.Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
+                  , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume }
+                  , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
+                  , new TipConcediu { Id = c.TipConcediu.Id, Nume = c.TipConcediu.Nume }
+                  , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
+                  ));
+            if (nrInceputInregistrari != null && nrTotalInregistrariDeAdus != null)
+            {
+                return v.Skip((int)nrInceputInregistrari).Take((int)nrTotalInregistrariDeAdus).ToList();
+            }
+            else
+            {
+                return v.ToList();
+            }
+
         }
 
         [HttpGet("GetAllIstoricConcediiVerificareDate")]
@@ -226,10 +237,30 @@ namespace ProiectASP.Controllers
                 .FirstOrDefault();
             return sumaZileDisponibile - sumaZileConcediu;
         }
-            
-        
 
-        [HttpPut("InserareConcediu")]
+        [HttpGet("GetNrTotalIstoricConcedii")]
+        public int GetAllIstoricConcediuAngajati(int idAngajat)
+        {
+            var v = (IQueryable<Concediu>)_context.Concedius
+                                                .Include(c => c.Angajat)
+                                                .Include(c => c.Inlocuitor)
+                                                .Include(c => c.StareConcediu);
+
+            if (idAngajat != null)
+            {
+                v = v.Where(c => c.Angajat.Id == idAngajat);
+            }
+            v = v.Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
+                    , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume }
+                    , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
+                    , new TipConcediu { Id = c.TipConcediu.Id, Nume = c.TipConcediu.Nume }
+                    , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
+                    ));
+
+            return v.Count();
+        }
+
+            [HttpPut("InserareConcediu")]
 
         public void InserareConcediu([FromBody] Concediu con)
         {
