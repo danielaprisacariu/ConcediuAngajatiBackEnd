@@ -220,6 +220,8 @@ namespace ProiectASP.Models
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("nume");
+
+                entity.Property(e => e.ZileTotaleConcediu).HasColumnName("zileTotaleConcediu");
             });
 
             OnModelCreatingPartial(modelBuilder);

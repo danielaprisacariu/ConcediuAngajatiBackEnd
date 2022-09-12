@@ -37,5 +37,15 @@ namespace ProiectASP.Models
             this.StareConcediu = stareConcediu;
            
         }
+
+        public Concediu(int id, DateTime dataInceput, DateTime dataSfarsit, Angajat angajat)
+        {
+            this.Id = id;
+            this.DataInceput = dataInceput;
+            this.DataSfarsit = dataSfarsit;
+            this.Angajat = angajat;
+        
+            
+        }
     }
 }
