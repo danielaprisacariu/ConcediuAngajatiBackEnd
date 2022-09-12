@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using ProiectASP.Models;
+using System.Linq;
 
 namespace ProiectASP.Controllers
 {
@@ -86,13 +88,46 @@ namespace ProiectASP.Controllers
              }         
          }*/
 
-        [HttpGet("GetAngajatiFiltrat")]
+        [HttpGet("NrTotalAngajati")]
 
-        public List<Angajat> GetAllAngajatiFiltrati(string? nume, string? prenume, int? IdDepartamentSelectat, int? IdManagerSelectat)
+        public int NrTotalAngajati(string? nume, string? prenume, int? IdDepartamentSelectat, int? IdManagerSelectat)
         {
             var v = (IQueryable<Angajat>)_context.Angajats
                                                 .Include(c => c.Departament)
                                                 .Include(c => c.Manager);
+
+            if (!String.IsNullOrEmpty(nume))
+            {
+                v = v.Where(c => c.Nume.ToLower().Contains(nume.ToLower()));
+
+            }
+            if (!String.IsNullOrEmpty(prenume))
+            {
+                v = v.Where(c => c.Prenume.ToLower().Contains(prenume.ToLower()));
+            }
+            if (IdManagerSelectat != null)
+            {
+                v = v.Where(c => c.ManagerId == IdManagerSelectat);
+            }
+            if (IdDepartamentSelectat != null)
+            {
+                v = v.Where(c => c.DepartamentId == IdDepartamentSelectat);
+            }
+            v = v.Where(a => a.concediat == false);
+            v.Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email,
+                                             new Angajat { Id = a.Manager.Id, Nume = a.Manager.Nume, Prenume = a.Manager.Prenume },
+                                             new Departament { Id = a.Departament.Id, Denumire = a.Departament.Denumire })).ToList();
+
+            return v.Count();
+        }
+
+        [HttpGet("GetAngajatiFiltrat")]
+
+        public List<Angajat> GetAllAngajatiFiltrati(string? nume, string? prenume, int? IdDepartamentSelectat, int? IdManagerSelectat, int? NrInregistrari, int? NrTotalAdus)
+        {
+            var v = (IQueryable<Angajat>)_context.Angajats
+                                                .Include(c => c.Departament)
+                                                .Include(c => c.Manager);/**/
 
 
             if (!String.IsNullOrEmpty(nume))
@@ -112,12 +147,25 @@ namespace ProiectASP.Controllers
             {
                 v = v.Where(c => c.DepartamentId == IdDepartamentSelectat);
             }
-
-            return v.Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email,
+            v = v.Where(a => a.concediat == false);
+             v = v.Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email,
                                              new Angajat { Id = a.Manager.Id, Nume = a.Manager.Nume, Prenume = a.Manager.Prenume },
-                                             new Departament { Id = a.Departament.Id, Denumire = a.Departament.Denumire })).ToList();
+                                             new Departament { Id = a.Departament.Id, Denumire = a.Departament.Denumire }))
+                  ;
+
+
+            if (NrInregistrari != null && NrTotalAdus != null)
+            {
+                
+                return v.Skip((int)NrInregistrari).Take((int)NrTotalAdus).ToList();
+            }
+            else
+            {
+                return v.ToList();
+            }
         }
     }
 }
+
 
 
