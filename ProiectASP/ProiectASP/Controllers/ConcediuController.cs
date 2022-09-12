@@ -35,7 +35,7 @@ namespace ProiectASP.Controllers
         }
 
         [HttpGet("GetNrTotalConcedii")]
-        public int GetAllConcediuAngajati(string? nume, string? prenume, int? idTipConcediu, int? idStareConcediu)
+        public int GetAllConcediuAngajati(string? nume, string? prenume, int? idTipConcediu, int? idStareConcediu,bool EsteAdmin,int idManager)
         {
             var v = (IQueryable<Concediu>)_context.Concedius
                                                 .Include(c => c.Angajat)
@@ -57,6 +57,11 @@ namespace ProiectASP.Controllers
             if (idStareConcediu != null)
             {
                 v = v.Where(c => c.StareConcediu.Id == idStareConcediu);
+            }
+            if (!EsteAdmin)
+            {
+                v = v.Where(c => c.Angajat.ManagerId == idManager);
+                v = v.Where(c => c.Angajat.Id != idManager);
             }
 
             v = v.Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
@@ -105,6 +110,7 @@ namespace ProiectASP.Controllers
             if (!EsteAdmin)
             {
                 v = v.Where(c => c.Angajat.ManagerId == idManager);
+                v = v.Where(c => c.Angajat.Id != idManager);
             }
 
             v = v.Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
