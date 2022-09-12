@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using ProiectASP.Models;
 using System.Linq;
 
+
+
 namespace ProiectASP.Controllers
 {
     [ApiController]
@@ -35,7 +37,7 @@ namespace ProiectASP.Controllers
         }
 
         [HttpGet("GetNrTotalConcedii")]
-        public int GetAllConcediuAngajati(string? nume, string? prenume, int? idTipConcediu, int? idStareConcediu)
+        public int GetAllConcediuAngajati(string? nume, string? prenume, int? idTipConcediu, int? idStareConcediu,bool EsteAdmin,int idManager)
         {
             var v = (IQueryable<Concediu>)_context.Concedius
                                                 .Include(c => c.Angajat)
@@ -57,6 +59,11 @@ namespace ProiectASP.Controllers
             if (idStareConcediu != null)
             {
                 v = v.Where(c => c.StareConcediu.Id == idStareConcediu);
+            }
+            if (!EsteAdmin)
+            {
+                v = v.Where(c => c.Angajat.ManagerId == idManager);
+                v = v.Where(c => c.Angajat.Id != idManager);
             }
 
             v = v.Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
@@ -105,6 +112,7 @@ namespace ProiectASP.Controllers
             if (!EsteAdmin)
             {
                 v = v.Where(c => c.Angajat.ManagerId == idManager);
+                v = v.Where(c => c.Angajat.Id != idManager);
             }
 
             v = v.Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
@@ -205,7 +213,7 @@ namespace ProiectASP.Controllers
             return _context.Concedius
                 .Include(c => c.Angajat)
                 .Include(c => c.StareConcediu)
-                .Where(c => c.Angajat.Id == angajatId && c.StareConcediu.Id != 3)
+                .Where(c => c.Angajat.Id == angajatId && c.StareConcediu.Id != 3 )
                 .Select(c => new Concediu { Id = c.Id, DataInceput = c.DataInceput, DataSfarsit = c.DataSfarsit })
                 .ToList();
         }
@@ -213,13 +221,14 @@ namespace ProiectASP.Controllers
         [HttpGet("GetConcediiInlocuitori")]
         public List<Concediu> GetConcediiInLocuitori([FromQuery] int angajatId)
         {
-            int idManager = (int) _context.Angajats
+            int idManager = (int)_context.Angajats
                              .Where(a => a.Id == angajatId)
                              .Select(a => a.ManagerId).FirstOrDefault();
 
             return _context.Concedius
                 .Include(c => c.Angajat)
-                .Where(c => c.Angajat.Id != angajatId && c.Angajat.ManagerId == idManager)
+                .Where(c => c.Angajat.Id != angajatId && c.Angajat.ManagerId == idManager )
+                
                 .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit
                 , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume, ManagerId = c.Angajat.ManagerId }
                 
