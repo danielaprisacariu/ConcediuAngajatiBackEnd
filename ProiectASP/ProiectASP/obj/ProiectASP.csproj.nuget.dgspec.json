@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sebastian.andrei\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj": {}
+    "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sebastian.andrei\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj": {
+    "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sebastian.andrei\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
+        "projectUniqueName": "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
         "projectName": "ProiectASP",
-        "projectPath": "C:\\Users\\sebastian.andrei\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
-        "packagesPath": "C:\\Users\\sebastian.andrei\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sebastian.andrei\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\obj\\",
+        "projectPath": "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\ProiectASP.csproj",
+        "packagesPath": "C:\\Users\\erwin.brustur\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\erwin.brustur\\Source\\Repos\\ConcediuAngajatiBackEnd\\ProiectASP\\ProiectASP\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\sebastian.andrei\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\erwin.brustur\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
