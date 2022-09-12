@@ -116,7 +116,7 @@ namespace ProiectASP.Controllers
             v = v.Where(a => a.concediat == false);
             v.Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email,
                                              new Angajat { Id = a.Manager.Id, Nume = a.Manager.Nume, Prenume = a.Manager.Prenume },
-                                             new Departament { Id = a.Departament.Id, Denumire = a.Departament.Denumire })).ToList();
+                                             new Departament { Id = a.Departament.Id, Denumire = a.Departament.Denumire }));
 
             return v.Count();
         }
