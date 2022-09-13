@@ -116,7 +116,7 @@ namespace ProiectASP.Controllers
         {
             return _context.Angajats
                 .Select(a => new Angajat() { Id = a.Id, Nume = a.Nume + " " + a.Prenume, ManagerId = a.ManagerId })
-                .Where(a => a.Id != angajatId && a.ManagerId == managerId)
+                .Where(a => a.Id != angajatId && a.ManagerId == managerId && a.concediat == false)
                 .ToList();
         }
 
