@@ -282,9 +282,58 @@ namespace ProiectASP.Controllers
         
         }
 
+        [HttpGet("GetConcediiManager")]
+        public List<Concediu> GetAllConcediuManager(string? nume, string? prenume, int? idTipConcediu, int? idStareConcediu, int? nrInceputInregistrari, int? nrTotalInregistrariDeAdus, bool EsteAdmin, int idManager)
+        {
+            var v = (IQueryable<Concediu>)_context.Concedius
+                                                .Include(c => c.Angajat)
+                                                .Include(c => c.Inlocuitor)
+                                                .Include(c => c.StareConcediu);
+
+            if (!String.IsNullOrEmpty(nume))
+            {
+                v = v.Where(c => c.Angajat.Nume.ToLower().Contains(nume.ToLower()));
+            }
+            if (!String.IsNullOrEmpty(prenume))
+            {
+                v = v.Where(c => c.Angajat.Prenume.ToLower().Contains(prenume.ToLower()));
+            }
+            if (idTipConcediu != null)
+            {
+                v = v.Where(c => c.TipConcediu.Id == idTipConcediu);
+            }
+            if (idStareConcediu != null)
+            {
+                v = v.Where(c => c.StareConcediu.Id == idStareConcediu);
+            }
+            if (!EsteAdmin)
+            {
+                v = v.Where(c => c.Angajat.ManagerId == idManager);
+            }
+
+            v = v.Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
+                , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume }
+                , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
+                , new TipConcediu { Id = c.TipConcediu.Id, Nume = c.TipConcediu.Nume }
+                , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
+                ));
+
+            if (nrInceputInregistrari != null && nrTotalInregistrariDeAdus != null)
+            {
+                return v.Skip((int)nrInceputInregistrari).Take((int)nrTotalInregistrariDeAdus).ToList();
+            }
+            else
+            {
+                return v.ToList();
+            }
 
 
-      
+        }
+
+
+
+
+
     }
 
 }
