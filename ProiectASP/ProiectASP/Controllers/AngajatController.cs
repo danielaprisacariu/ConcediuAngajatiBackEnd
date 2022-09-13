@@ -24,7 +24,20 @@ namespace ProiectASP.Controllers
         [HttpGet("GetAllAngajati")]
         public List<Angajat> GetAllAngajati([FromQuery] int id)
         {
-            return _context.Angajats.Select(a => new Angajat() { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, Email = a.Email, Parola = a.Parola, DataAngajare = a.DataAngajare, DataNasterii = a.DataNasterii, Cnp = a.Cnp, Serie = a.Serie, No = a.No, NrTelefon = a.NrTelefon, EsteAdmin = a.EsteAdmin, ManagerId = a.ManagerId, DepartamentId = a.DepartamentId, FunctieId = a.FunctieId }).ToList();
+            return _context.Angajats.Select(a => new Angajat() { Id = a.Id, Nume = a.Nume, Prenume = a.Prenume, Email = a.Email, Parola = a.Parola, DataAngajare = a.DataAngajare, DataNasterii = a.DataNasterii, Cnp = a.Cnp, Serie = a.Serie, No = a.No, NrTelefon = a.NrTelefon, Poza = a.Poza, DepartamentId = a.DepartamentId, FunctieId = a.FunctieId }).ToList();
+        }
+
+        [HttpGet("GetAngajatById")]
+        public Angajat GetAngajatById([FromQuery] int id)
+        {
+            return _context.Angajats
+                .Include(a => a.Departament)
+                .Include(a => a.Functie)
+                .Where(a => a.Id == id)
+                .Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email, a.DataAngajare, a.DataNasterii, a.Cnp, a.Serie, a.No, a.NrTelefon, a.Poza
+                , new Departament { Denumire = a.Departament.Denumire }
+                , new Functie { Denumire = a.Functie.Denumire }
+                )).FirstOrDefault();
         }
 
         [HttpGet("GetAllAngajatiNumeConcatenat")]
@@ -74,11 +87,6 @@ namespace ProiectASP.Controllers
         }
         
 
-  
-
-
-  
-
 
         [HttpGet("GetInlocuitori")]
 
@@ -107,7 +115,7 @@ namespace ProiectASP.Controllers
         public List<Angajat> GetAllAngajatiNumeConcatenat([FromQuery] int angajatId, int managerId)
         {
             return _context.Angajats
-                .Select(a => new Angajat() { Id = a.Id, Nume = a.Nume + " " + a.Prenume, ManagerId = a.ManagerId })
+                .Select(a => new Angajat() { Id = a.Id, Nume = a.Nume + " " + a.Prenume, ManagerId = a.ManagerId, concediat = a.concediat })
                 .Where(a => a.Id != angajatId && a.ManagerId == managerId && a.concediat == false)
                 .ToList();
         }
