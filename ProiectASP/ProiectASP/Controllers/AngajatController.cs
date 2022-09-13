@@ -107,7 +107,7 @@ namespace ProiectASP.Controllers
         public List<Angajat> GetAllAngajatiNumeConcatenat([FromQuery] int angajatId, int managerId)
         {
             return _context.Angajats
-                .Select(a => new Angajat() { Id = a.Id, Nume = a.Nume + " " + a.Prenume, ManagerId = a.ManagerId })
+                .Select(a => new Angajat() { Id = a.Id, Nume = a.Nume + " " + a.Prenume, ManagerId = a.ManagerId, concediat = a.concediat })
                 .Where(a => a.Id != angajatId && a.ManagerId == managerId && a.concediat == false)
                 .ToList();
         }
