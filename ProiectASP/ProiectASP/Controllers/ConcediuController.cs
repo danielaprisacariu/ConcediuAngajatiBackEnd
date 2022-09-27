@@ -74,13 +74,6 @@ namespace ProiectASP.Controllers
                 ));
 
             return v.Count();
-            //return v
-            //    .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
-            //    , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume }
-            //    , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
-            //    , new TipConcediu {Id = c.TipConcediu.Id, Nume = c.TipConcediu.Nume }
-            //    , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
-            //    )).Skip(nrInceputInregistrari).Take(nrTotalInregistrariDeAdus).ToList();
 
         }
 
@@ -131,14 +124,6 @@ namespace ProiectASP.Controllers
                 return v.ToList();
             }
 
-            //return v
-            //    .Select(c => new Concediu(c.Id, c.DataInceput, c.DataSfarsit, c.Comentarii
-            //    , new Angajat { Id = c.Angajat.Id, Nume = c.Angajat.Nume, Prenume = c.Angajat.Prenume }
-            //    , new Angajat { Id = c.Inlocuitor.Id, Nume = c.Inlocuitor.Nume, Prenume = c.Inlocuitor.Prenume }
-            //    , new TipConcediu {Id = c.TipConcediu.Id, Nume = c.TipConcediu.Nume }
-            //    , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
-            //    )).Skip(nrInceputInregistrari).Take(nrTotalInregistrariDeAdus).ToList();
-
         }
 
 
@@ -156,8 +141,6 @@ namespace ProiectASP.Controllers
                 , new TipConcediu { Nume = c.TipConcediu.Nume }
                 , new StareConcediu { Id = c.StareConcediu.Id, Nume = c.StareConcediu.Nume }
                 )).ToList().Where(c=>c.Angajat.ManagerId==26).ToList();
-
-            //_context.Concedius.Include(c => c.Angajat.Manager).Include(c => c.StareConcediu).Select(c => c).ToList();
 
         }
 
@@ -273,7 +256,7 @@ namespace ProiectASP.Controllers
             return v.Count();
         }
 
-            [HttpPut("InserareConcediu")]
+        [HttpPut("InserareConcediu")]
 
         public void InserareConcediu([FromBody] Concediu con)
         {
