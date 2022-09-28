@@ -28,9 +28,6 @@ namespace ProiectASP.Controllers
 
 
         [HttpGet("TotiAngajatii")]
-
-
-
         public List<Angajat> GetAllAngajati()
         {
             return _context.Angajats
