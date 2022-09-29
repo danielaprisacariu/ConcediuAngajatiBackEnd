@@ -44,7 +44,21 @@ namespace ProiectASP.Controllers
                 .Include(a => a.Departament)
                 .Include(a => a.Functie)
                 .Where(a => a.Id == id)
-                .Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email, a.DataAngajare, a.DataNasterii, a.Cnp, a.Serie, a.No, a.NrTelefon, a.Poza
+                .Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email, a.DataAngajare, a.DataNasterii, a.Cnp, a.Serie, a.No, a.NrTelefon, a.Poza, a.ManagerId.Value
+
+                , new Departament { Denumire = a.Departament.Denumire }
+                , new Functie { Denumire = a.Functie.Denumire }
+                )).FirstOrDefault();
+        }
+
+        [HttpGet("GetAngajatByEmail")]
+        public Angajat GetAngajatByEmail([FromQuery] string email)
+        {
+            return _context.Angajats
+                .Include(a => a.Departament)
+                .Include(a => a.Functie)
+                .Where(a => a.Email.Equals(email))
+                .Select(a => new Angajat(a.Id, a.Nume, a.Prenume, a.Email, a.DataAngajare, a.DataNasterii, a.Cnp, a.Serie, a.No, a.NrTelefon, a.Poza, a.ManagerId.Value
                 , new Departament { Denumire = a.Departament.Denumire }
                 , new Functie { Denumire = a.Functie.Denumire }
                 )).FirstOrDefault();

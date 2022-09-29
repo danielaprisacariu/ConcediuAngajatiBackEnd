@@ -58,7 +58,7 @@ namespace ProiectASP.Models
             this.Departament = departament;
         }
 
-        public Angajat(int id, string nume, string prenume, string email, DateTime dataAngajare, DateTime dataNastere, string cnp, string serie, string no, string nrTelefon, byte[] poza, Departament departament, Functie functie)
+        public Angajat(int id, string nume, string prenume, string email, DateTime dataAngajare, DateTime dataNastere, string cnp, string serie, string no, string nrTelefon, byte[] poza, int managerId,Departament departament, Functie functie)
         {
             this.Id = id;
             this.Nume = nume;
@@ -73,6 +73,7 @@ namespace ProiectASP.Models
             this.Poza = poza;
             this.Departament = departament;
             this.Functie = functie;
+            this.ManagerId = managerId;
         }
 
         public Angajat(int id, string nume, string prenume, string email, DateTime dataAngajare, DateTime dataNastere, string cnp, string serie, string no, string nrTelefon, byte[] poza, Angajat manager, Departament departament, Functie functie)
